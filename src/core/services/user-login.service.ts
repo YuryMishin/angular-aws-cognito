@@ -10,9 +10,8 @@ import {
   CognitoUserSession
 } from 'amazon-cognito-identity-js';
 import * as AWS from 'aws-sdk/global';
-import STS from 'aws-sdk/clients/sts';
-import { WhoamiService } from './whoami.service';
-import { SnackBarWindowService } from './snackbar.service';
+import * as STS from 'aws-sdk/clients/sts';
+// import STS from 'aws-sdk/clients/sts'; A few developers have problem with STS - if you have error, uncomment this
 
 @Injectable()
 export class UserLoginService {
@@ -29,18 +28,13 @@ export class UserLoginService {
     sts.getCallerIdentity(function(err, data) {
       callback.cognitoCallback(null, session);
     });
-  }
+  };
 
   private onLoginError = (callback: CognitoCallback, err) => {
-    this.snackBar.error(err.message);
     callback.cognitoCallback(err.message, null);
-  }
+  };
 
-  constructor(
-    public cognitoUtil: CognitoService,
-    public whoamiService: WhoamiService,
-    public snackBar: SnackBarWindowService,
-  ) {}
+  constructor(public cognitoUtil: CognitoService) {}
 
   authenticate(username: string, password: string, callback: CognitoCallback) {
     const authenticationData = {
@@ -95,11 +89,6 @@ export class UserLoginService {
 
     const cognitoUser = this.cognitoUtil.getCurrentUser();
     if (cognitoUser != null) {
-
-      this.whoamiService.getUser().subscribe((data) => {
-        this.whoamiService.currentUserSubject.next(data);
-      });
-
       cognitoUser.getSession(function(err, session) {
         if (err) {
           callback.isLoggedIn(err, false);

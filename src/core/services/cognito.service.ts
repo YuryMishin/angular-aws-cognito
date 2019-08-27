@@ -4,7 +4,6 @@ import { CognitoUserPool } from 'amazon-cognito-identity-js';
 import * as AWS from 'aws-sdk/global';
 import * as awsservice from 'aws-sdk/lib/service';
 import * as CognitoIdentity from 'aws-sdk/clients/cognitoidentity';
-import { TitleService } from 'core/services/title.service';
 
 export interface CognitoCallback {
   cognitoCallback(message: string, result: any): void;
@@ -40,10 +39,7 @@ export class CognitoService {
   public static _CLIENT_ID;
   public static _POOL_DATA;
 
-  constructor(
-    private titleService: TitleService,
-    private awsConfig: AwsConfigurationService
-  ) {
+  constructor(private awsConfig: AwsConfigurationService) {
     CognitoService._REGION = this.awsConfig.cognitoRegion;
     CognitoService._USER_POOL_ID = this.awsConfig.cognitoPoolId;
     CognitoService._CLIENT_ID = this.awsConfig.cognitoAppClientId;
@@ -61,11 +57,7 @@ export class CognitoService {
   }
 
   getCurrentUser() {
-    const currentUser = this.getUserPool().getCurrentUser();
-    if (currentUser) {
-      this.titleService.userTitleSubject.next(currentUser.getUsername());
-    }
-    return currentUser;
+    return this.getUserPool().getCurrentUser();
   }
 
 

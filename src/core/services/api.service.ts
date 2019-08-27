@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AwsConfigurationService } from './aws-configuration.service';
 import apigClientFactory from 'aws-api-gateway-client';
-import { _throw } from 'rxjs/observable/throw';
+import { throwError } from 'rxjs';
 import { CognitoService } from './cognito.service';
 import { from, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -22,7 +22,7 @@ export class ApiService {
     });
   }
   private showErrorMessage(method: string, path: string, errorDetails: string) {
-    this.snackBar.error(`API ${method.toUpperCase()} '${path}' is not working! (${errorDetails})`);
+    console.error(`API ${method.toUpperCase()} '${path}' is not working! (${errorDetails})`);
     this.badPath = path;
   }
 
@@ -30,7 +30,7 @@ export class ApiService {
     return this.callAWSAPI(path, 'get', {}, { headers: {}, queryParams: params })
       .pipe(catchError((error) => {
         this.showErrorMessage('get', path, error.message);
-        return _throw(error.error);
+        return throwError(error.error);
       }));
   }
 
@@ -38,7 +38,7 @@ export class ApiService {
     return this.callAWSAPI(path, 'put', {}, { headers: {}, queryParams: {} }, JSON.stringify(body))
       .pipe(catchError((error) => {
         this.showErrorMessage('put', path, error.message);
-        return _throw(error.error);
+        return throwError(error.error);
       }));
   }
 
@@ -46,7 +46,7 @@ export class ApiService {
     return this.callAWSAPI(path, 'post', {}, { headers: {}, queryParams: {} }, JSON.stringify(body))
       .pipe(catchError((error) => {
         this.showErrorMessage('post', path, error.message);
-        return _throw(error.error);
+        return throwError(error.error);
       }));
   }
 
@@ -54,7 +54,7 @@ export class ApiService {
     return this.callAWSAPI(path, 'delete')
       .pipe(catchError((error) => {
         this.showErrorMessage('delete', path, error.message);
-        return throw(error.error);
+        return throwError(error.error);
       }));
   }
 
@@ -96,7 +96,7 @@ export class ApiService {
         }
       }));
     } else {
-      console.log('no cognito user');
+      console.log('No cognito user');
       throw ({ error: 'No Cognito User' });
     }
   }

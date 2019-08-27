@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 declare global {
   interface GlobalConfigurations {
@@ -14,11 +15,6 @@ declare global {
       ddbTableName?: string;
       dynamodb_endpoint?: string;
     };
-    rules: any;
-  }
-
-  interface Window {
-    envConf: GlobalConfigurations;
   }
 }
 
@@ -35,28 +31,21 @@ export class AwsConfigurationService {
   public ddbTableName: string;
   public dynamodb_endpoint: string;
 
-  public rules: any;
 
   constructor() {
-    this.fillConfigurationsData(window.envConf);
   }
 
   private fillConfigurationsData(configuration: GlobalConfigurations): void {
-    this.endpoints = {
-      webBaseUrl: configuration.webBaseUrl,
-      apiBaseUrl: configuration.apiBaseUrl,
-    };
 
-    this.apiRegion = configuration.apiRegion;
+    this.apiRegion = environment.apiRegion;
 
-    this.rules = configuration.rules;
 
-    this.cognitoRegion = configuration.cognitoRegion;
-    this.cognitoPoolId = configuration.cognitoPoolId;
-    this.userPoolId = configuration.userPoolId;
-    this.cognitoAppClientId = configuration.cognitoAppClientId;
+    this.cognitoRegion = environment.cognitoRegion;
+    this.cognitoPoolId = environment.cognitoPoolId;
+    this.userPoolId = environment.userPoolId;
+    this.cognitoAppClientId = environment.cognitoAppClientId;
 
-    this.ddbTableName = configuration.dynamodb ? configuration.dynamodb.ddbTableName : '';
-    this.dynamodb_endpoint = configuration.dynamodb ? configuration.dynamodb.dynamodb_endpoint : '';
+    this.ddbTableName = environment.dynamodb ? environment.dynamodb.ddbTableName : '';
+    this.dynamodb_endpoint = environment.dynamodb ? environment.dynamodb.dynamodb_endpoint : '';
   }
 }

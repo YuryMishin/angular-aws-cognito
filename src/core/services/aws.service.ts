@@ -11,7 +11,7 @@ export class AwsService {
   public static runningInit = false;
 
   constructor(public cognitoUtil: CognitoService) {
-    AWS.config.region = CognitoUtil._REGION;
+    AWS.config.region = CognitoService._REGION;
   }
 
   /**

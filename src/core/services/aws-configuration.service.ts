@@ -44,8 +44,5 @@ export class AwsConfigurationService {
     this.cognitoPoolId = environment.cognitoPoolId;
     this.userPoolId = environment.userPoolId;
     this.cognitoAppClientId = environment.cognitoAppClientId;
-
-    this.ddbTableName = environment.dynamodb ? environment.dynamodb.ddbTableName : '';
-    this.dynamodb_endpoint = environment.dynamodb ? environment.dynamodb.dynamodb_endpoint : '';
   }
 }

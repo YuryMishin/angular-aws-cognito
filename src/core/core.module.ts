@@ -6,6 +6,7 @@ import { CognitoService } from './services/cognito.service';
 import { AwsConfigurationService } from './services/aws-configuration.service';
 import { AwsService } from './services/aws.service';
 import { AuthGuardService } from './services/auth-guard.service';
+import { UserLoginService } from './services/user-login.service';
 
 @NgModule({
   declarations: [],
@@ -13,7 +14,7 @@ import { AuthGuardService } from './services/auth-guard.service';
     CommonModule,
     MaterialModule,
   ],
-  providers: [ApiService, CognitoService, AwsConfigurationService, AwsService, AuthGuardService]
+  providers: [ApiService, CognitoService, AwsConfigurationService, AwsService, AuthGuardService, UserLoginService]
 })
 export class CoreModule {
 }

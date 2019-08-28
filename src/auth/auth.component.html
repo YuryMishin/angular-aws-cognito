@@ -1,0 +1,60 @@
+<mat-card>
+  <mat-card-content>
+    <form class="my-form" [formGroup]="authForm" (submit)="submitForm()">
+
+      <mat-form-field class="full-width form-group">
+
+        <mat-label>Username</mat-label>
+        <input formControlName="username"
+               (change)="userExist=true"
+               (blur)="focused = false"
+               (focus)="focused = true"
+               placeholder="Username"
+               matInput>
+
+      </mat-form-field>
+
+      <div class="warning-text" *ngIf="focused && authForm.get('username').invalid && authForm.get('username').touched">
+        <span *ngIf="authForm.get('username').errors['required']">Username is required!</span>
+      </div>
+
+      <br>
+
+      <mat-form-field class="full-width form-group">
+        <mat-label>Password</mat-label>
+
+        <input (blur)="focusedPass = false"
+               (focus)="focusedPass = true"
+               formControlName="password"
+               (change)="userExist=true"
+               placeholder="Password"
+               [(ngModel)]="password"
+               type="password"
+               matInput>
+
+      </mat-form-field>
+
+      <div class="warning-text" *ngIf="focusedPass && authForm.get('password').invalid && authForm.get('password').touched">
+        <span *ngIf="authForm.get('password').errors['required']">Password is required!</span>
+      </div>
+
+      <div class="warning-text" *ngIf="!userExist">
+        <span *ngIf="!focused && !focusedPass">Username/password not found</span>
+      </div>
+
+      <mat-card-actions class="login-button">
+
+        <button mat-raised-button type="submit"
+                [disabled]="userCheck || authForm.get('username').pending || authForm.get('username').invalid || authForm.get('password').invalid"
+                color="primary">LOGIN</button>
+
+      </mat-card-actions>
+
+      <div *ngIf="userCheck">
+        <mat-progress-bar mode="buffer"></mat-progress-bar>
+      </div>
+
+    </form>
+  </mat-card-content>
+
+</mat-card>

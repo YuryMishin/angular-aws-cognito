@@ -5,4 +5,5 @@ export const environment = {
   'cognitoPoolId': 'YOUR_POOL_ID',
   'cognitoAppClientId' : 'YOUR_CLIENT_ID',
   'cognitoRegion' : 'YOUR_COGNITO_REGION',
+  'userPoolId': 'YOUR_USERPOOLID'
 };

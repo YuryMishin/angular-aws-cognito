@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AwsConfigurationService } from './aws-configuration.service';
 import apigClientFactory from 'aws-api-gateway-client';
 import { throwError } from 'rxjs';
 import { CognitoService } from './cognito.service';
 import { from, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +14,7 @@ export class ApiService {
   private badPath: string;
   private apiVersion = 'api/v1';
 
-  constructor(private awsConfig: AwsConfigurationService,
-              private cognitoUtil: CognitoService) {
+  constructor(private cognitoUtil: CognitoService) {
     this.cognitoUtil.getIdToken({
       callback: () => { },
       callbackWithParam: token => this.idToken = token
@@ -63,8 +62,7 @@ export class ApiService {
     headers: {},
     queryParams: {}
   }, body = {}): Observable<any> {
-    const apiRegion = this.awsConfig.apiRegion;
-    const apiURL = `${this.awsConfig.endpoints.apiBaseUrl}/${this.apiVersion}`;
+    const apiRegion = environment.apiRegion;
     const idToken = this.idToken;
     const cognitoGetUser = this.cognitoUtil.getCurrentUser();
 
@@ -82,7 +80,6 @@ export class ApiService {
     if (cognitoGetUser != null) {
       additionalParams = cleanParams(additionalParams);
       const apigClient = apigClientFactory.newClient({
-        invokeUrl: apiURL,
         region: apiRegion
       });
 

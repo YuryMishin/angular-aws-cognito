@@ -2,7 +2,7 @@
   <mat-card-content>
     <form class="my-form" [formGroup]="authForm" (submit)="submitForm()">
 
-      <mat-form-field class="full-width form-group">
+      <div class="full-width form-group">
 
         <mat-label>Username</mat-label>
         <input formControlName="username"
@@ -12,7 +12,7 @@
                placeholder="Username"
                matInput>
 
-      </mat-form-field>
+      </div>
 
       <div class="warning-text" *ngIf="focused && authForm.get('username').invalid && authForm.get('username').touched">
         <span *ngIf="authForm.get('username').errors['required']">Username is required!</span>
@@ -20,7 +20,7 @@
 
       <br>
 
-      <mat-form-field class="full-width form-group">
+      <div class="full-width form-group">
         <mat-label>Password</mat-label>
 
         <input (blur)="focusedPass = false"
@@ -32,7 +32,7 @@
                type="password"
                matInput>
 
-      </mat-form-field>
+      </div>
 
       <div class="warning-text" *ngIf="focusedPass && authForm.get('password').invalid && authForm.get('password').touched">
         <span *ngIf="authForm.get('password').errors['required']">Password is required!</span>

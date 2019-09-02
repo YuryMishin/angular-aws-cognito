@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from './material.module';
 import { ApiService } from './services/api.service';
 import { CognitoService } from './services/cognito.service';
-import { AwsConfigurationService } from './services/aws-configuration.service';
+
 import { AwsService } from './services/aws.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { UserLoginService } from './services/user-login.service';
@@ -14,7 +14,7 @@ import { UserLoginService } from './services/user-login.service';
     CommonModule,
     MaterialModule,
   ],
-  providers: [ApiService, CognitoService, AwsConfigurationService, AwsService, AuthGuardService, UserLoginService]
+  providers: [ApiService, CognitoService, AwsService, AuthGuardService, UserLoginService]
 })
 export class CoreModule {
 }

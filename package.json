@@ -38,7 +38,7 @@
     "@types/node": "~8.9.4",
     "aws-api-gateway-client": "^0.2.17",
     "amazon-cognito-identity-js": "1.29.0",
-    "aws-sdk": "^2.67.0",
+    "aws-sdk": "^2.814.0",
     "codelyzer": "^5.0.1",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
